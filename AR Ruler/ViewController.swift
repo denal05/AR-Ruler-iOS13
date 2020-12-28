@@ -67,12 +67,16 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         let material = SCNMaterial()
         material.diffuse.contents = UIColor.red
         dotGeometry.materials = [material]
+        
         let dotNode = SCNNode(geometry: dotGeometry)
         dotNode.position = SCNVector3(
-            x: arHitTestResult.worldTransform.columns.3.x,
-            y: arHitTestResult.worldTransform.columns.3.y,
-            z: arHitTestResult.worldTransform.columns.3.z
+            arHitTestResult.worldTransform.columns.3.x,
+            arHitTestResult.worldTransform.columns.3.y,
+            arHitTestResult.worldTransform.columns.3.z
         )
+        
+        sceneView.scene.rootNode.addChildNode(dotNode)
+        
         dotNodes.append(dotNode)
         
         if dotNodes.count >= 2 {
@@ -103,29 +107,4 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.scene.rootNode.addChildNode(textNode)
     }
     
-    // MARK: - ARSCNViewDelegate
-    
-/*
-    // Override to create and configure nodes for anchors added to the view's session.
-    func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-        let node = SCNNode()
-     
-        return node
-    }
-*/
-    
-    func session(_ session: ARSession, didFailWithError error: Error) {
-        // Present an error message to the user
-        
-    }
-    
-    func sessionWasInterrupted(_ session: ARSession) {
-        // Inform the user that the session has been interrupted, for example, by presenting an overlay
-        
-    }
-    
-    func sessionInterruptionEnded(_ session: ARSession) {
-        // Reset tracking and/or remove existing anchors if consistent tracking is required
-        
-    }
 }
